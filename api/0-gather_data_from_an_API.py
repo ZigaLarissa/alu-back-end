@@ -7,6 +7,9 @@ from pip._vendor import requests
 from sys import argv
 import json
 
+"""
+   secure imports.
+"""
 
 if __name__ == "__main__":
     
