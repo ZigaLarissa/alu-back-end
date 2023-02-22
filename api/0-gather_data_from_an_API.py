@@ -9,6 +9,8 @@ import json
 
 
 if __name__ == "__main__":
+    """request user name by id"""
+    
     request_name = requests.get('https://jsonplaceholder.typicode.com/users/{}/'.format(argv[1]))
     name_object = json.loads(request_name.text)
     name = name_object.get('name')
