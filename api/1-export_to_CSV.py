@@ -29,4 +29,4 @@ if __name__ == "__main__":
         csv_writer = csv.writer(file, delimiter=',', quoting=csv.QUOTE_ALL)
 
         for k, v in tasks.items():
-            csv_writer.writerow([USER_ID, USERNAME, k, v])
+            csv_writer.writerow([USER_ID, USERNAME, v, k])
