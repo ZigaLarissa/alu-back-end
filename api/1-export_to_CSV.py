@@ -25,8 +25,8 @@ if __name__ == "__main__":
     for dictionary in tasks_object:
         tasks.update({dictionary.get('title'): dictionary.get('completed')})
 
-    with open("{}.csv".format(USER_ID), 'w') as file:
+    with open("{}.csv".format(argv[1]), 'w') as file:
         csv_writer = csv.writer(file, delimiter=',', quoting=csv.QUOTE_ALL)
 
         for k, v in tasks.items():
-            csv_writer.writerow([USER_ID, USERNAME, v, k])
+            csv_writer.writerow([argv[1], USERNAME, v, k])
