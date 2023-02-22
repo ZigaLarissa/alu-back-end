@@ -1,51 +1,54 @@
 #!/usr/bin/python3
 """
-   A script that gets the needed info from a url using the user id.
+    python script that returns TODO list progress for a given employee ID.
 """
-
+import json
 from pip._vendor import requests
 from sys import argv
-import json
 
 
 if __name__ == "__main__":
-    
     """
-       request user name by id.
+        request user info by employee ID.
     """
-
-    request_name = requests.get('https://jsonplaceholder.typicode.com/users/{}/'.format(argv[1]))
-    name_object = json.loads(request_name.text)
-    name = name_object.get('name')
-    
+    request_employee = requests.get(
+        'https://jsonplaceholder.typicode.com/users/{}/'.format(argv[1]))
     """
-       request the titles and tasks of the user.
+        convert json to dictionary.
     """
-
-    request_tasks = requests.get('https://jsonplaceholder.typicode.com/users/{}/todos/'.format(argv[1]))
-    tasks_object = json.loads(request_tasks.text)
+    employee = json.loads(request_employee.text)
+    """
+        extract employee name.
+    """
+    employee_name = employee.get("name")
 
     """
-       sort titles and tasks in a dictionary.
+        request user's TODO list.
     """
-    
+    request_tasks = requests.get(
+        'https://jsonplaceholder.typicode.com/users/{}/todos'.format(argv[1]))
+    """
+        dictionary to store task status in boolean format.
+    """
     tasks = {}
-    for dictionary in tasks_object:
-        tasks.update({dictionary.get('title'): dictionary.get('completed')})
-    
     """
-       Get the completed tasks.
+        convert json to list of dictionaries.
     """
-    completed_tasks = []
-    for i in tasks.values():
-        if i is True:
-            completed_tasks.append(i)
+    employee_todos = json.loads(request_tasks.text)
+    """
+        loop through dictionary & get completed tasks.
+    """
+    for dictionary in employee_todos:
+        tasks.update({dictionary.get("title"): dictionary.get("completed")})
+
+    """
+        return name, total number of tasks & completed tasks.
+    """
     
-    NUMBER_OF_DONE_TASKS = len(completed_tasks)
     TOTAL_NUMBER_OF_TASKS = len(tasks)
-
-    print('Employee {} is done with tasks({}/{}):'.format(name, NUMBER_OF_DONE_TASKS, TOTAL_NUMBER_OF_TASKS))
-
+    NUMBER_OF_DONE_TASKS = len([k for k, v in tasks.items() if v is True])
+    print("Employee {} is done with tasks({}/{}):".format(
+        employee_name, NUMBER_OF_DONE_TASKS, TOTAL_NUMBER_OF_TASKS))
     for k, v in tasks.items():
         if v is True:
-            print('\t {}'.format(k))
+            print("\t {}".format(k))
