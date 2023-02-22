@@ -3,7 +3,7 @@
     python script that returns TODO list progress for a given employee ID
 """
 import json
-from pip._vendor import requests
+import requests
 from sys import argv
 
 
