@@ -1,15 +1,12 @@
 #!/usr/bin/python3
 """
-   Get the necessary libraries.
+   A script that gets the needed info from a url using the user id.
 """
 
 from pip._vendor import requests
 from sys import argv
 import json
 
-"""
-   secure imports.
-"""
 
 if __name__ == "__main__":
     
