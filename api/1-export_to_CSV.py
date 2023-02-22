@@ -2,21 +2,23 @@
 
 """import the necessary libraries."""
 
-import json
 import csv
+import json
 import requests
 from sys import argv
 
 
 if __name__ == "__main__":
 
-    request_name = requests.get('https://jsonplaceholder.typicode.com/users/{}/'.format(argv[1]))
+    request_name = requests.get(
+        'https://jsonplaceholder.typicode.com/users/{}/'.format(argv[1]))
+
     name_object = json.loads(request_name.text)
     USERNAME = name_object.get('username')
-    
     USER_ID = name_object.get('id')
-    
-    request_tasks = requests.get('https://jsonplaceholder.typicode.com/users/{}/todos'.format(argv[1]))
+
+    request_tasks = requests.get(
+        'https://jsonplaceholder.typicode.com/users/{}/todos'.format(argv[1]))
     tasks_object = json.loads(request_tasks.text)
 
     tasks = {}
