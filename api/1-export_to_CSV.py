@@ -23,7 +23,7 @@ if __name__ == "__main__":
 
     tasks = {}
     for dictionary in tasks_object:
-        tasks.update({dictionary.get('completed'): dictionary.get('title')})
+        tasks.update({dictionary.get('title'): dictionary.get('completed')})
 
     with open("{}.csv".format(USER_ID), 'w') as file:
         csv_writer = csv.writer(file, delimiter=',', quoting=csv.QUOTE_ALL)
