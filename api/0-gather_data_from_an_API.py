@@ -1,5 +1,7 @@
 #!/usr/bin/python3
-"""Get the necessary libraries."""
+"""
+   Get the necessary libraries.
+"""
 
 from pip._vendor import requests
 from sys import argv
