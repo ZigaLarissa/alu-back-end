@@ -9,23 +9,33 @@ import json
 
 
 if __name__ == "__main__":
-    """request user name by id"""
+    
+    """
+       request user name by id.
+    """
 
     request_name = requests.get('https://jsonplaceholder.typicode.com/users/{}/'.format(argv[1]))
     name_object = json.loads(request_name.text)
     name = name_object.get('name')
     
-    """request the titles and tasks of the user"""
+    """
+       request the titles and tasks of the user.
+    """
 
     request_tasks = requests.get('https://jsonplaceholder.typicode.com/users/{}/todos/'.format(argv[1]))
     tasks_object = json.loads(request_tasks.text)
 
-    """sort titles and tasks in a dictionary."""
+    """
+       sort titles and tasks in a dictionary.
+    """
+    
     tasks = {}
     for dictionary in tasks_object:
         tasks.update({dictionary.get('title'): dictionary.get('completed')})
     
-    """Get the completed tasks"""
+    """
+       Get the completed tasks.
+    """
     completed_tasks = []
     for i in tasks.values():
         if i is True:
