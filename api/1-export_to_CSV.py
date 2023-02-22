@@ -9,42 +9,42 @@ from sys import argv
 
 if __name__ == "__main__":
     """
-        request user info by employee ID.
+        request user info by employee ID
     """
     request_employee = requests.get(
         'https://jsonplaceholder.typicode.com/users/{}/'.format(argv[1]))
     """
-        convert json to dictionary.
+        convert json to dictionary
     """
-    employee = json.loads(request_employee.text)
+    user = json.loads(request_employee.text)
     """
-        extract username.
+        extract username
     """
-    USERNAME = employee.get("username")
+    username = user.get("username")
 
     """
-        request user's TODO list.
+        request user's TODO list
     """
-    request_tasks = requests.get(
+    request_todos = requests.get(
         'https://jsonplaceholder.typicode.com/users/{}/todos'.format(argv[1]))
     """
-        dictionary to store task status(completed) in boolean format.
+        dictionary to store task status(completed) in boolean format
     """
     tasks = {}
     """
-        convert json to list of dictionaries.
+        convert json to list of dictionaries
     """
-    user_tasks = json.loads(request_tasks.text)
+    user_todos = json.loads(request_todos.text)
     """
-        loop through dictionary & get completed tasks.
+        loop through dictionary & get completed tasks
     """
-    for dictionary in user_tasks:
-        tasks.update({dictionary.get("completed"): dictionary.get("title")})
+    for dictionary in user_todos:
+        tasks.update({dictionary.get("title"): dictionary.get("completed")})
 
     """
-        export to CSV.
+        export to CSV
     """
     with open('{}.csv'.format(argv[1]), mode='w') as file:
-        csv_writer = csv.writer(file, delimiter=',', quoting=csv.QUOTE_ALL)
+        file_editor = csv.writer(file, delimiter=',', quoting=csv.QUOTE_ALL)
         for k, v in tasks.items():
-            csv_writer.writerow([argv[1], USERNAME, k, v])
+            file_editor.writerow([argv[1], username, v, k])
