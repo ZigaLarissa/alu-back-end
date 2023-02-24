@@ -1,6 +1,7 @@
 #!/usr/bin/python3
-""""Module"""
-
+"""
+    python scripts that exports data in the CSV format
+"""
 import csv
 import json
 import requests
@@ -9,7 +10,7 @@ from sys import argv
 
 if __name__ == "__main__":
     """
-        request user info by employee ID
+        request user info by emplyee ID
     """
     request_employee = requests.get(
         'https://jsonplaceholder.typicode.com/users/{}/'.format(argv[1]))
@@ -28,7 +29,7 @@ if __name__ == "__main__":
     request_todos = requests.get(
         'https://jsonplaceholder.typicode.com/users/{}/todos'.format(argv[1]))
     """
-        dictionary to store task status(completed) in boolean format
+        dictionary to store task status(completed)in boolean format
     """
     tasks = {}
     """
@@ -36,15 +37,15 @@ if __name__ == "__main__":
     """
     user_todos = json.loads(request_todos.text)
     """
-        loop through dictionary & get completed tasks
+        loop through dictionary and get completed task
     """
     for dictionary in user_todos:
         tasks.update({dictionary.get("title"): dictionary.get("completed")})
 
-    """
-        export to CSV
-    """
+        """
+            export to CSV
+        """
     with open('{}.csv'.format(argv[1]), mode='w') as file:
-        file_editor = csv.writer(file, delimiter=',', quoting=csv.QUOTE_ALL)
+        file_writer = csv.writer(file, delimiter=',', quoting=csv.QUOTE_ALL)
         for k, v in tasks.items():
-            file_editor.writerow([argv[1], username, v, k])
+            file_writer.writerow([argv[1], username, v, k])
